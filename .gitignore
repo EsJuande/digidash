@@ -218,3 +218,25 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Cursor: tokens y servidores MCP locales
+.cursor/mcp.json
+
+# Rust (artefactos de compilación; el código y Cargo.toml sí se versionan)
+# https://github.com/github/gitignore/blob/main/Rust.gitignore
+debug/
+# target/ ya está ignorado arriba (PyBuilder); se repite para dejar claro el caso de Cargo
+target/
+
+# Copias de seguridad de rustfmt
+**/*.rs.bk
+
+# Información de depuración de builds MSVC de rustc
+*.pdb
+
+# Datos de cargo-mutants
+**/mutants.out*/
+
+# Credenciales locales de Cargo
+.cargo/credentials
+.cargo/credentials.toml
