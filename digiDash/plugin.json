@@ -1,0 +1,17 @@
+{
+    "id": "digiDash",
+    "name": "DigiDash",
+    "description": "Un Digimon en el escritorio",
+    "version": "0.1.0",
+    "author": "digidash",
+    "type": "desktop",
+    "capabilities": ["desktop-widget"],
+    "component": "./DigiDashWidget.qml",
+    "icon": "pets",
+    "settings": "./DigiDashSettings.qml",
+    "requires_dms": ">=1.2.0",
+    "permissions": [
+        "settings_read",
+        "settings_write"
+    ]
+}
