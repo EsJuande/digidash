@@ -1,8 +1,7 @@
 import QtQuick
-import Qt.labs.folderlistmodel
-import QtCore
 import qs.Common
 import qs.Modules.Plugins
+import "DigiDashRoster.js" as RosterGen
 
 DesktopPluginComponent {
     id: root
@@ -10,11 +9,12 @@ DesktopPluginComponent {
     minWidth: 64
     minHeight: 64
 
-    property real spriteScale: (pluginData.spriteScale ?? 100) / 100
+    property real spriteScale: pluginData.spriteScale ?? 100
     property string backgroundStyle: pluginData.backgroundStyle ?? "transparent"
-    property string selectedCritter: pluginData.selectedCritter ?? ""
+    property string selectedCritter: pluginData.selectedCritter ?? "Dorumon"
 
-    readonly property string spriteDirectory: StandardPaths.writableLocation(StandardPaths.GenericDataLocation) + "/digidash"
+    readonly property var activeCritter: RosterGen.DigiDashRoster.getByName(root.selectedCritter)
+    readonly property real displayEdge: RosterGen.DigiDashRoster.displayEdge(root.spriteScale)
 
     readonly property color bgColor: {
         if (backgroundStyle === "dms")
@@ -23,26 +23,6 @@ DesktopPluginComponent {
             return Qt.rgba(0, 0, 0, 0.15);
         return "transparent";
     }
-
-    FolderListModel {
-        id: rosterModel
-        folder: Paths.toFileUrl(root.spriteDirectory)
-        nameFilters: ["*.gif", "*.GIF"]
-        showDirs: false
-        showDotAndDotDot: false
-        sortField: FolderListModel.Name
-    }
-
-    function spriteUrl(fileName) {
-        for (let i = 0; i < rosterModel.count; ++i) {
-            if (rosterModel.get(i, "fileName") === fileName)
-                return Paths.toFileUrl(rosterModel.get(i, "filePath"));
-        }
-        return "";
-    }
-
-    readonly property string activeFile: root.spriteUrl(root.selectedCritter) !== "" ? root.selectedCritter : rosterModel.count > 0 ? rosterModel.get(0, "fileName") : ""
-    readonly property string activeSpriteUrl: root.spriteUrl(root.activeFile)
 
     Rectangle {
         anchors.fill: parent
@@ -55,29 +35,13 @@ DesktopPluginComponent {
     Item {
         anchors.fill: parent
 
-        Item {
-            id: critter
+        AnimatedImage {
             anchors.centerIn: parent
-            visible: root.activeSpriteUrl !== ""
-            width: Math.max(gifView.implicitWidth, 1) * 2 * root.spriteScale
-            height: Math.max(gifView.implicitHeight, 1) * 2 * root.spriteScale
-
-            AnimatedImage {
-                id: gifView
-                anchors.fill: parent
-                source: root.activeSpriteUrl
-            }
-        }
-
-        Text {
-            anchors.centerIn: parent
-            width: parent.width - 16
-            horizontalAlignment: Text.AlignHCenter
-            wrapMode: Text.WordWrap
-            visible: rosterModel.status === FolderListModel.Ready && root.activeFile === ""
-            color: Theme.surfaceText
-            font.pixelSize: Theme.fontSizeSmall
-            text: "Copiá un GIF a " + root.spriteDirectory
+            width: root.displayEdge
+            height: root.displayEdge
+            source: Qt.resolvedUrl(root.activeCritter.file)
+            fillMode: Image.PreserveAspectFit
+            smooth: false
         }
     }
 }

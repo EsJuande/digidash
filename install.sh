@@ -22,7 +22,6 @@ root="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 plugin_source="${root}/digiDash"
 plugins_dir="${config_home}/DankMaterialShell/plugins"
 plugin_link="${plugins_dir}/digiDash"
-data_dir="${data_home}/digidash"
 legacy_binary="${HOME}/.local/bin/digidash"
 legacy_desktop="${config_home}/autostart/digidash.desktop"
 
@@ -45,7 +44,7 @@ uninstall() {
     fi
   fi
   remove_legacy
-  echo "digidash: se quitó el plugin. Los GIF siguen en ${data_dir}."
+  echo "digidash: se quitó el plugin."
 }
 
 install_widget() {
@@ -62,17 +61,17 @@ install_widget() {
     exit 1
   fi
 
-  mkdir -p "${plugins_dir}" "${data_dir}"
+  mkdir -p "${plugins_dir}"
   ln -sfn "${plugin_source}" "${plugin_link}"
   remove_legacy
 
   cat <<EOF
 digidash quedó instalado como widget de DankMaterialShell.
-Colocá los GIF en: ${data_dir}
+Trae a Dorumon, Gabumon y Terriermon. Elegilos en los ajustes del widget.
 Agregalo al escritorio desde los widgets de DMS.
 El botón derecho mueve el widget. La esquina inferior derecha cambia el tamaño de la caja.
 Con la grilla activa, G la enciende, Z y X cambian el paso.
-La escala del sprite, el Digimon y el fondo están en los ajustes del widget.
+La escala va del 50 % al 150 %. Al 150 % el sprite mide la mitad de Dorumon.
 EOF
 }
 

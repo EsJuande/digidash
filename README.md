@@ -6,6 +6,6 @@ Widget de escritorio de DankMaterialShell que muestra un GIF de un Digimon. Se m
 ./install.sh
 ```
 
-Hace falta DankMaterialShell. Después agregá DigiDash desde los widgets de escritorio. Los GIF van en `~/.local/share/digidash`, un archivo por Digimon. El sprite se dibuja al doble de su tamaño nativo y la escala, del 50 % al 250 %, se cambia en los ajustes, igual que el fondo: transparente, tema de DMS o vidrio.
+Hace falta DankMaterialShell. Después agregá DigiDash desde los widgets de escritorio. Dorumon, Gabumon y Terriermon vienen con el widget y se eligen en los ajustes. La escala va del 50 % al 150 %: al 150 % los tres miden la mitad del GIF de Dorumon, 100 px. El fondo puede ser transparente, el tema de DMS o vidrio.
 
-`./install.sh uninstall` quita el plugin. No borra los GIF.
+`./install.sh uninstall` quita el plugin.
