@@ -2,7 +2,7 @@
     "id": "digiDash",
     "name": "DigiDash",
     "description": "Un Digimon en el escritorio",
-    "version": "0.1.0",
+    "version": "0.0.0",
     "author": "digidash",
     "type": "desktop",
     "capabilities": ["desktop-widget"],
